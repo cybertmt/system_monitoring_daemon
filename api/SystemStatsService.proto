@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package system_stat_service;
+
+option go_package = "./;internalgrpc";
+
+service SystemStatsStreamService {
+  rpc FetchResponse(RequestMessage) returns (stream ResponseMessage);
+}
+
+message RequestMessage {
+  string name = 1;
+  int32 n = 2;
+  int32 m = 3;
+}
+
+message ResponseMessage {
+  string title = 1;
+  string collectedAt = 2;
+  LoadMessage load = 3;
+  CPUMessage cpu = 4;
+  DiskMessage disk = 5;
+}
+
+message LoadMessage {
+  float load1 = 1;
+  float load5 = 2;
+  float load15 = 3;
+}
+
+message CPUMessage {
+  float user = 1;
+  float system = 2;
+  float idle = 3;
+}
+
+message DiskMessage {
+  float kbt = 1;
+  float tps = 2;
+  float mbs = 3;
+}
